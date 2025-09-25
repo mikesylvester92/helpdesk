@@ -43,6 +43,10 @@ export default function MyTicketsPage() {
     setSelectedTicket(ticket);
   };
 
+  const handleTicketRowClick = (ticketId: string) => {
+    window.location.href = `/portal/tickets/${ticketId}`;
+  };
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -109,7 +113,7 @@ export default function MyTicketsPage() {
                       className={`p-6 cursor-pointer hover:bg-gray-50 transition-colors ${
                         selectedTicket?.id === ticket.id ? 'bg-blue-50' : ''
                       }`}
-                      onClick={() => handleTicketClick(ticket)}
+                      onClick={() => handleTicketRowClick(ticket.id)}
                     >
                       <div className="flex items-center justify-between mb-3">
                         <h3 className="text-sm font-medium text-blue-600">

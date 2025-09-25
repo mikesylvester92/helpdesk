@@ -3,9 +3,10 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Search, Plus, User, Settings, LogOut, CircleHelp as HelpCircle, Inbox, Clock, CircleCheck as CheckCircle, Archive } from 'lucide-react';
+import { Search, Plus, User, Settings, LogOut, CircleHelp as HelpCircle, Inbox, Clock, CircleCheck as CheckCircle, Archive, BarChart3 } from 'lucide-react';
 
 const views = [
+  { name: 'Dashboard', icon: BarChart3, count: null, href: '/dashboard' },
   { name: 'Unassigned', icon: Inbox, count: 12 },
   { name: 'My Open Tickets', icon: User, count: 8 },
   { name: 'All Open Tickets', icon: Clock, count: 45 },
@@ -23,7 +24,11 @@ export default function DashboardLayout({
 
   const handleViewClick = (viewName: string) => {
     setActiveView(viewName);
-    router.push(`/dashboard?view=${encodeURIComponent(viewName)}`);
+    if (viewName === 'Dashboard') {
+      router.push('/dashboard');
+    } else {
+      router.push(`/dashboard/tickets?view=${encodeURIComponent(viewName)}`);
+    }
   };
 
   const handleLogout = () => {
@@ -98,12 +103,15 @@ export default function DashboardLayout({
             <div className="space-y-1">
               {views.map((view) => {
                 const Icon = view.icon;
+                const isActive = view.name === 'Dashboard' 
+                  ? pathname === '/dashboard'
+                  : activeView === view.name;
                 return (
                   <button
                     key={view.name}
                     onClick={() => handleViewClick(view.name)}
                     className={`w-full flex items-center justify-between px-3 py-2 rounded-md text-sm transition-colors ${
-                      activeView === view.name
+                      isActive
                         ? 'bg-blue-100 text-blue-700'
                         : 'text-gray-700 hover:bg-gray-100'
                     }`}
@@ -112,13 +120,15 @@ export default function DashboardLayout({
                       <Icon className="w-4 h-4" />
                       <span>{view.name}</span>
                     </div>
-                    <span className={`text-xs px-2 py-1 rounded-full ${
-                      activeView === view.name
-                        ? 'bg-blue-200 text-blue-800'
-                        : 'bg-gray-200 text-gray-600'
-                    }`}>
-                      {view.count}
-                    </span>
+                    {view.count !== null && (
+                      <span className={`text-xs px-2 py-1 rounded-full ${
+                        isActive
+                          ? 'bg-blue-200 text-blue-800'
+                          : 'bg-gray-200 text-gray-600'
+                      }`}>
+                        {view.count}
+                      </span>
+                    )}
                   </button>
                 );
               })}
