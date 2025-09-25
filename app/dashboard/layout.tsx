@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Search, Plus, User, Settings, LogOut, CircleHelp as HelpCircle, Inbox, Clock, CircleCheck as CheckCircle, Archive, BarChart3 } from 'lucide-react';
+import { Search, Plus, User, Settings, LogOut, CircleHelp as HelpCircle, Inbox, Clock, CircleCheck as CheckCircle, Archive, ChartBar as BarChart3 } from 'lucide-react';
 
 const views = [
   { name: 'Dashboard', icon: BarChart3, count: null, href: '/dashboard' },

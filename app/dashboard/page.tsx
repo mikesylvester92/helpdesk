@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
-import { Ticket, Users, AlertTriangle, Clock, TrendingUp, MessageSquare } from 'lucide-react';
+import { Ticket, Users, TriangleAlert as AlertTriangle, Clock, TrendingUp, MessageSquare } from 'lucide-react';
 import { CardSkeleton } from '@/components/ui/loading-spinner';
 
 interface DashboardStats {
